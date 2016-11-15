@@ -1,0 +1,92 @@
+Context Free Grammar
+====================
+
+Prefix
+------
+E -> O E T
+E -> T
+T -> num
+O -> op
+
+
+
+Infix
+-----
+E -> T E'
+E' -> O T E'
+E' -> e
+T -> num
+O -> op
+
+
+
+Postfix
+-------
+E -> T E'
+E' -> T O E'
+E' -> e
+T -> num
+O -> op
+
+
+
+Syntax Directed Definitions
+===========================
+
+Prefix to Infix
+---------------
+E -> O E T  |  E.val = E.val + O.op + T.val
+E -> T      |  E.val = T.val
+T -> num    |  T.val = num.lexval
+O -> op     |  O.op = op.lexval
+
+
+
+Prefix to Postfix
+-----------------
+E -> O E T  |  E.val = E.val + T.val + O.op
+E -> T      |  E.val = T.val
+T -> num    |  T.val = num.lexval
+O -> op     |  O.op = op.lexval
+
+
+
+Infix to Prefix
+---------------
+E  -> T E'     |  E.val = E'.op + T.val + E'.val
+E' -> O T E'1  |  E'.val = E'1.val + T.val && E'.op = E'1.op + O.op
+E' -> e        |  E'.val = '' && E'.val = ''
+T  -> num      |  T.val = num.lexval
+O  -> op       |  O.op = op.lexval
+
+
+
+Infix to Postfix
+----------------
+E  -> T E'     |  E.val = T.val + E'.val
+E' -> O T E'1  |  E'.val = T.val + O.op + E'1.val
+E' -> e        |  E'.val = ''
+T  -> num      |  T.val = num.lexval
+O  -> op       |  O.op = op.lexval
+
+
+
+Postfix to Prefix
+----------------
+E  -> T E'     |  E.val = E'.op + T.val + E'.val
+E' -> T O E'1  |  E'.val = T.val + E'1.val && E'.op = E'1.op + O.op
+E' -> e        |  E'.val = '' && E'.op = ''
+T  -> num      |  T.val = num.lexval
+O  -> op       |  O.op = op.lexval
+
+
+
+Postfix to Infix
+----------------
+E  -> T E'     |  T.val + E'.val
+E' -> T O E'1  |  E'.val = O.op + T.val + E'1.val
+E' -> e        |  E'.val = ''
+T  -> num      |  T.val = num.lexval
+O  -> op       |  O.op = op.lexval
+
+
