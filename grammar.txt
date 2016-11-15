@@ -83,7 +83,7 @@ O  -> op       |  O.op = op.lexval
 
 Postfix to Infix
 ----------------
-E  -> T E'     |  T.val + E'.val
+E  -> T E'     |  E.val = T.val + E'.val
 E' -> T O E'1  |  E'.val = O.op + T.val + E'1.val
 E' -> e        |  E'.val = ''
 T  -> num      |  T.val = num.lexval

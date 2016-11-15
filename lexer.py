@@ -10,16 +10,17 @@ from token import Token
 #
 class Lexer:
     def __init__(self, expr):
-        self.expr = expr.replace(' ', '')
+        self.expr = expr
         self.currChar = 0
 
     #
     # Sync member variables after a token has been
     # extracted from the expression
     #
-    def __sync__(self, lexeme):
+    def _sync(self, lexeme):
         self.currChar += len(lexeme)
         self.expr = self.expr.replace(lexeme, '', 1)
+        self.expr = self.expr.strip()
 
     #
     # Get next token from the expression
@@ -33,7 +34,7 @@ class Lexer:
         if m != None:
             lexeme = m.group(0)
             token = Token(TokenCode.Number, lexeme, self.currChar)
-            self.__sync__(lexeme)
+            self._sync(lexeme)
 
             return token
 
@@ -42,7 +43,7 @@ class Lexer:
         if m != None:
             lexeme = m.group(0)
             token = Token(TokenCode.Addop, lexeme, self.currChar)
-            self.__sync__(lexeme)
+            self._sync(lexeme)
 
             return token
 
@@ -51,7 +52,7 @@ class Lexer:
         if m != None:
             lexeme = m.group(0)
             token = Token(TokenCode.Mulop, lexeme, self.currChar)
-            self.__sync__(lexeme)
+            self._sync(lexeme)
 
             return token
 
@@ -60,7 +61,7 @@ class Lexer:
         if m != None:
             lexeme = m.group(0)
             token = Token(TokenCode.Unknown, lexeme, self.currChar)
-            self.__sync__(lexeme)
+            self._sync(lexeme)
 
             return token
 
