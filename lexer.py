@@ -2,7 +2,7 @@
 
 import re
 from tokenCode import TokenCode
-from token import Token
+from nToken import Token
 
 #
 # This is a lexical analyzer which is initialized
@@ -18,7 +18,7 @@ class Lexer:
     # extracted from the expression
     #
     def _sync(self, lexeme):
-        self.currChar += len(lexeme)
+        self.currChar += len(lexeme) + 1
         self.expr = self.expr.replace(lexeme, '', 1)
         self.expr = self.expr.strip()
 

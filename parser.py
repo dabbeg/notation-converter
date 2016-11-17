@@ -8,11 +8,8 @@ import parser_postfix_to_prefix
 import parser_postfix_to_infix
 import sys
 
-if __name__ == "__main__":
-    inp = sys.argv[2]
-    lexer = Lexer(inp)
-
-    conversion = sys.argv[1]
+def run(conversion, input):
+    lexer = Lexer(input)
 
     if conversion == 'prefix-infix':
         parser = parser_prefix_to_infix.Parser(lexer)
@@ -27,7 +24,11 @@ if __name__ == "__main__":
     elif conversion == 'postfix-infix':
         parser = parser_postfix_to_infix.Parser(lexer)
     else:
-        print('no parser of that type')
-        exit(1)
+        raise ValueError('no parser of type: ' + conversion)
 
-    parser.parse()
+    return parser.parse()
+
+
+if __name__ == "__main__":
+    parsed_input = run(sys.argv[1], sys.argv[2])
+    print(parsed_input)

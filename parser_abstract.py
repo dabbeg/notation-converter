@@ -11,8 +11,7 @@ class Parser():
         if(tokenCode == self.lookahead.tokenCode):
             self.lookahead = self.lexer.nextToken()
         else:
-            print('Expected ' + tokenCode.name)
-            exit(1)
+            raise ValueError('Expected ' + tokenCode.name + ' in column: ' + str(self.lexer.currChar + 1))
 
     def _O(self):
         op = self.lookahead.lexeme
@@ -25,4 +24,7 @@ class Parser():
         return num
 
     def parse(self):
-        print(self._E())
+        e = self._E()
+        if self.lookahead.tokenCode != TokenCode.EOF:
+            raise ValueError('Expected EOF in column: ' + str(self.lexer.currChar + 1))
+        return e
