@@ -7,6 +7,9 @@ class Parser():
         self.lexer = lexer
         self.lookahead = lexer.nextToken()
 
+    def _pad(self, string):
+        return ' ' + string + ' '
+
     def _match(self, tokenCode):
         if(tokenCode == self.lookahead.tokenCode):
             self.lookahead = self.lexer.nextToken()
@@ -16,15 +19,15 @@ class Parser():
     def _O(self):
         op = self.lookahead.lexeme
         self._match(TokenCode.Addop)
-        return op
+        return self._pad(op)
 
     def _T(self):
         num = self.lookahead.lexeme
         self._match(TokenCode.Number)
-        return num
+        return self._pad(num)
 
     def parse(self):
-        e = self._E()
+        e = self._E().strip()
         if self.lookahead.tokenCode != TokenCode.EOF:
             raise ValueError('Expected EOF in column: ' + str(self.lexer.currChar + 1))
         return e
